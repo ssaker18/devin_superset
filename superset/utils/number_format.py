@@ -159,7 +159,7 @@ def normalize_currency(value: Any) -> str | None:
     """
     if not isinstance(value, str):
         return None
-    normalized = value.strip().upper()
+    normalized = value.upper()
     return normalized if re.fullmatch(r"[A-Z]{3}", normalized) else None
 
 
@@ -182,7 +182,7 @@ def format_number_with_config(
         number that can be formatted
     """
     if value is None:
-        return ""
+        return None
     if isinstance(value, bool) or not isinstance(value, (int, float, Decimal)):
         return value
     if isinstance(value, Decimal):
@@ -203,7 +203,7 @@ def format_number_with_config(
             except Exception:  # pylint: disable=broad-except  # noqa: BLE001
                 return formatted
         if not d3_format:
-            return raw_string(value)
+            return str(value)
         return format_numeric(d3_format, value)
     except Exception:  # pylint: disable=broad-except  # noqa: BLE001
         # never let an unexpected value break a whole report table
