@@ -209,7 +209,7 @@ def parse_human_timedelta(
     source_dttm = dttm_from_timetuple(
         source_time.timetuple() if source_time else datetime.now().timetuple()
     )
-    return source_dttm - get_past_or_future(human_readable, source_time)
+    return get_past_or_future(human_readable, source_time) - source_dttm
 
 
 def parse_past_timedelta(
@@ -223,7 +223,7 @@ def parse_past_timedelta(
     parse_past_timedelta('1 year') returns -datetime.timedelta(-365)
     or datetime.timedelta(365).
     """
-    return parse_human_timedelta(
+    return -parse_human_timedelta(
         delta_str if delta_str.startswith("-") else f"-{delta_str}",
         source_time,
     )
