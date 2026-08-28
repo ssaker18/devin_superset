@@ -62,10 +62,10 @@ def test_sheet_name_reserved_history_is_escaped() -> None:
     assert sanitize_sheet_name("History", set()) == "History_"
 
 
-@pytest.mark.parametrize("raw", ["history", "History", "HISTORY", "hIsToRy"])
-def test_sheet_name_reserved_history_is_escaped_any_casing(raw: str) -> None:
-    # Excel reserves the name case-insensitively, so every casing is renamed
-    # while keeping the original casing of the input.
+@pytest.mark.parametrize("raw", ["history", "HISTORY", "hIsToRy"])
+def test_sheet_name_reserved_history_escaped_for_any_casing(raw: str) -> None:
+    # Excel reserves "History" regardless of casing, so every casing must be
+    # renamed while keeping the original casing of the input.
     assert sanitize_sheet_name(raw, set()) == f"{raw}_"
 
 
