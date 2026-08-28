@@ -182,7 +182,7 @@ def validate_json(obj: Union[bytes, bytearray, str]) -> None:
             loads(obj)
         except JSONDecodeError as ex:
             logger.error("JSON is not valid %s", str(ex), exc_info=True)
-            return
+            raise
 
 
 def dumps(  # pylint: disable=too-many-arguments
