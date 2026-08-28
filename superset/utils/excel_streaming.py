@@ -101,7 +101,7 @@ def sanitize_sheet_name(raw: str, used: set[str]) -> str:
     name = name.strip().strip("'").strip()
     if not name:
         name = "Sheet"
-    if name == _RESERVED_SHEET_NAME:
+    if name.lower() == _RESERVED_SHEET_NAME:
         name = f"{name}_"
     name = name[:MAX_SHEET_NAME_LEN]
 
