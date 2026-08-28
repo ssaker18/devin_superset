@@ -159,7 +159,7 @@ def normalize_currency(value: Any) -> str | None:
     """
     if not isinstance(value, str):
         return None
-    normalized = value.upper()
+    normalized = value.strip().upper()
     return normalized if re.fullmatch(r"[A-Z]{3}", normalized) else None
 
 
