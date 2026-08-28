@@ -105,8 +105,15 @@ def sanitize_sheet_name(raw: str, used: set[str]) -> str:
         name = f"{name}_"
     name = name[:MAX_SHEET_NAME_LEN]
 
-    used.add(name.lower())
-    return name
+    candidate = name
+    suffix = 2
+    while candidate.lower() in used:
+        marker = f"~{suffix}"
+        candidate = name[: MAX_SHEET_NAME_LEN - len(marker)] + marker
+        suffix += 1
+
+    used.add(candidate.lower())
+    return candidate
 
 
 def _sanitize_cell(value: Any) -> Any:
