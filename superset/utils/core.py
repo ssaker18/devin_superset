@@ -534,7 +534,7 @@ def cast_to_boolean(value: Any) -> bool | None:
     if isinstance(value, (int, float)):
         return value != 0
     if isinstance(value, str):
-        return bool(value)
+        return value.strip().lower() not in ("", "false")
     return False
 
 
