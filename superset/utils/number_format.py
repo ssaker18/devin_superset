@@ -203,7 +203,7 @@ def format_number_with_config(
             except Exception:  # pylint: disable=broad-except  # noqa: BLE001
                 return formatted
         if not d3_format:
-            return str(value)
+            return raw_string(value)
         return format_numeric(d3_format, value)
     except Exception:  # pylint: disable=broad-except  # noqa: BLE001
         # never let an unexpected value break a whole report table
