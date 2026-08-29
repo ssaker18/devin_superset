@@ -28,6 +28,7 @@ from superset.utils.number_format import (
     format_number_with_config,
     format_numeric,
     get_currency_locale,
+    normalize_currency,
     resolve_auto_currency,
     resolve_symbol_position,
 )
@@ -94,6 +95,26 @@ def test_resolve_auto_currency_uses_detected_single_currency() -> None:
     assert resolve_auto_currency(currency, None) is currency
     explicit = {"symbol": "EUR", "symbolPosition": "suffix"}
     assert resolve_auto_currency(explicit, "USD") is explicit
+
+
+@pytest.mark.parametrize(
+    "value,expected",
+    [
+        ("usd", "USD"),
+        (" usd ", "USD"),
+        ("\tUSD\n", "USD"),
+        ("  ", None),
+        ("US", None),
+        ("USDD", None),
+        ("US1", None),
+        ("US$", None),
+        ("eur\u00f8", None),
+        (None, None),
+        (123, None),
+    ],
+)
+def test_normalize_currency(value: Any, expected: str | None) -> None:
+    assert normalize_currency(value) == expected
 
 
 def test_resolve_auto_currency_prefers_cell_context_and_detects_mixed() -> None:
