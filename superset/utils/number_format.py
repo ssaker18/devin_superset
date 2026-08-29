@@ -182,7 +182,7 @@ def format_number_with_config(
         number that can be formatted
     """
     if value is None:
-        return None
+        return ""
     if isinstance(value, bool) or not isinstance(value, (int, float, Decimal)):
         return value
     if isinstance(value, Decimal):
