@@ -534,7 +534,7 @@ def cast_to_boolean(value: Any) -> bool | None:
     if isinstance(value, (int, float)):
         return value != 0
     if isinstance(value, str):
-        return value.strip().lower() not in ("", "false")
+        return bool(value)
     return False
 
 
@@ -2184,7 +2184,7 @@ def parse_boolean_string(bool_str: str | None) -> bool:
     """
     if bool_str is None:
         return False
-    return bool_str.lower() in ("y", "yes", "t", "true", "on", "1")
+    return bool_str.lower() in ("y", "yes", "t", "true", "1")
 
 
 def apply_max_row_limit(
